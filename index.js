@@ -19,6 +19,7 @@ bot.on('callback_query',  (msg) => {
     const chatId = msg.message.chat.id;
     //await bot.sendMessage(chatId, "Pizdec")
 
+
     emitter.emit(queryData, bot,chatId, buttons)
 })
 

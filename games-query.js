@@ -1,22 +1,35 @@
-const axios = require('axios')
+const getGame = require('./gameRequest')
+const getConvertGameData = require('./getConvertGameData')
 
-async function getGame(genres, page) {
-    const url = `https://api.rawg.io/api/games?key=3be063dfbfb748c4907fffef57dd9d18&genres=${genres}&page=${page}`
-    const result = await axios.get(url);
-    const data = await result.data.results;
-    const index = Math.floor(data.length * Math.random());
-    const game = data[index]
+let rememberedGames = []
 
-    return game;
+function getRandomPara() {
+    let index = Math.floor(Math.random() * 20);
+    let page = Math.floor(Math.random() * 200);
+
+    if(rememberedGames.length > 50)
+        rememberedGames = []
+
+    while(rememberedGames.find(value => (value.page == page) && (value.index == index))) {
+        index = Math.floor(Math.random() * 20);
+        page = Math.floor(Math.random() * 200);
+    }
+    rememberedGames.push({index, page})
+
+    return {index, page};
 }
 
 class GamesQuery {
 
-
-
     async action(bot, chatId, {AdditionalButtons}) {
-        const gamePreModify =  await getGame('action', 2);
-        await bot.sendMessage(chatId, gamePreModify.name, AdditionalButtons)
+        const {index,page} = getRandomPara()
+        const gamePreModify =  await getGame('action', index, page);
+        const data = await gamePreModify.data;
+
+        const {img, caption} = getConvertGameData(data);
+
+        await bot.sendPhoto(chatId, img, {caption});
+        await bot.sendMessage(chatId, '?Next?', AdditionalButtons)
     }
     async strategy(bot, chatId, AdditionalButtons) {
 
@@ -32,6 +45,11 @@ class GamesQuery {
     }
     async horror(bot, chatId, AdditionalButtons) {
 
+    }
+
+
+    clearRemGames() {
+        rememberedGames = []
     }
 }
 

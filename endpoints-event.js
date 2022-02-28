@@ -7,7 +7,11 @@ emitter.on('/start', async (bot,chatId, {SearchButton}) => {
     await bot.sendMessage(chatId, 'Hello', SearchButton)
 })
 emitter.on('/genres', async (bot, chatId, {gameOption}) => {
+    GameQuery.clearRemGames();
     await bot.sendMessage(chatId, 'Choose genre of game', gameOption)
+})
+emitter.on('/fao', async(bot, chatId, {AdditionalButtons}) => {
+    await bot.sendMessage(chatId, "MSSG", AdditionalButtons)
 })
 
 
