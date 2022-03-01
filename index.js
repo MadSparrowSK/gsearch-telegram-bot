@@ -14,11 +14,9 @@ bot.on('message', (msg) => {
     emitter.emit(queryMSG, bot, chatId, buttons)
 })
 bot.on('callback_query',  (msg) => {
-    console.log(msg)
     const queryData = msg.data;
     const chatId = msg.message.chat.id;
     //await bot.sendMessage(chatId, "Pizdec")
-
 
     emitter.emit(queryData, bot,chatId, buttons)
 })

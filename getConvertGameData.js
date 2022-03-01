@@ -1,16 +1,48 @@
 module.exports = (data) => {
+    console.log(data)
+
     const img = data.background_image;
-    const gameName = data.name;
+    const gameName = data.name || data.name_original || 'There Must be Name of Game)';
     const released = `released:${data.released}`;
     const metacritic = `metacritic:${data.metacritic || 'unknown'}`;
-    const genres = `genres[...]`
-    const tags = `tags[...]`
-    const developers = `developers: ${data.developers[0].name}`;
-    const publisher = `publisher: ${data.publishers[0].name}`
-    const website = `website:${data.website}`
-    const platforms = `platforms:[...]`
-    const stores = `stores:[...]`
-    const description_raw = data.description_raw.length > 100 ? `${data.description_raw.substring(0,100)}...` : data.description_raw;
+
+    let genreList = "";
+    data.genres.forEach((obj, index) => {
+        genreList += index == data.genres.length - 1 ? obj.name : `${obj.name},`;
+    })
+    const genres = `genres:[${genreList || 'genre, what is this?'}]`
+
+    let tagsList = "";
+    data.tags.forEach((obj, index) => {
+        tagsList += index == data.tags.length - 1 ? obj.name : `${obj.name},`
+    })
+    const tags = `tags:[${tagsList || 'tags its just illugsion'}]`
+
+    let devsList = "";
+    data.developers.forEach((obj, index) => {
+        devsList += index == data.developers.length - 1 ? obj.name : `${obj.name},`;
+    })
+    const developers = `developers:[${devsList || "0_0"}]`;
+
+    let publsList = "";
+    data.publishers.forEach((obj, index) => {
+        publsList += index == data.publishers.length - 1 ? obj.name : `${obj.name},`
+    })
+    const publisher = `publisher:[${ publsList || 'unknown'}]`
+    const website = `website:${data.website || 'nope'}`
+
+    let platformStr = "";
+    data.platforms.forEach( (obj,index) => {
+        platformStr += index == data.platforms.length - 1 ? obj.platform.name : `${obj.platform.name},`
+    })
+    const platforms = `platforms:[${platformStr || 'none'}]`
+
+    let storesList = "";
+    data.stores.forEach((obj, index) => {
+        storesList += index == data.stores.length - 1 ? obj.store.name : `${obj.store.name},`
+    })
+    const stores = `stores:[${storesList || 'You know where find ;)'}]`
+    const description_raw = (data.description_raw.length > 100 ? `${data.description_raw.substring(0,100)}...` : data.description_raw) || 'no description';
     const moreInfo = `https://rawg.io/games/${data.slug}`;
 
     const caption = `${gameName}\n${released}\n${metacritic}\n${genres}\n${tags}\n${developers}\n${publisher}\n${website}\n${platforms}\n${stores}\n${description_raw}\n${moreInfo}`

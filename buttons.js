@@ -11,7 +11,7 @@ const gameOption = {
         inline_keyboard: [
             [{text: 'Action', callback_data: '/Action' }, {text: 'Strategy', callback_data: '/Strategy'}],
             [{text: 'Shooter', callback_data: '/Shooter' }, {text: 'RPG', callback_data: '/RPG'}],
-            [{text: 'MMO', callback_data: '/MMO' }, {text: 'Horror', callback_data: '/Horror'}],
+            [{text: 'Adventure', callback_data: '/Adventure' }, {text: 'Racing', callback_data: '/Racing'}],
         ]
     })
 }
