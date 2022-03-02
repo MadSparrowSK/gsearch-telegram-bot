@@ -1,5 +1,5 @@
 module.exports = (data) => {
-    console.log(data)
+    //console.log(data)
 
     const img = data.background_image;
     const gameName = data.name || data.name_original || 'There Must be Name of Game)';
@@ -42,11 +42,15 @@ module.exports = (data) => {
         storesList += index == data.stores.length - 1 ? '<a href=' + "'" + obj.store.domain + "'" +'>' + obj.store.name + '</a>' : '<a href=' + "'" + obj.store.domain + "'" +'>' + obj.store.name + '</a>,'
     })
     const stores = `stores:[${storesList || 'You know where find ;)'}]`
-    const description_raw = (data.description_raw.length > 100 ? `${data.description_raw.substring(0,100)}...` : data.description_raw) || 'no description';
+
+    const pcIndex = data.platforms.find(obj => obj.platform.name == "PC");
+    const requirements = (pcIndex && "Requirements for PC:" + pcIndex.requirements.minimum) || '';
+
+    const description_raw = (data.description_raw.length > 100 ? `Description:${data.description_raw.substring(0,100)}...` : "Description:" + data.description_raw) || 'no description';
     const link = `https://rawg.io/games/${data.slug}`;
     const moreInfo = "<a href="+ "'" + link + "'" +">More Info</a>";
 
-    const caption = `${gameName}\n${released}\n${metacritic}\n${genres}\n${tags}\n${developers}\n${publisher}\n${website}\n${platforms}\n${stores}\n${description_raw}\n${moreInfo}`
+    const caption = `${gameName}\n${released}\n${metacritic}\n${genres}\n${tags}\n${developers}\n${publisher}\n${website}\n${platforms}\n${stores}\n${requirements}\n${description_raw}\n${moreInfo}`
 
     return {
         img,
