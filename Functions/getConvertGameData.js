@@ -1,6 +1,4 @@
 module.exports = (data) => {
-    //console.log(data)
-
     const img = data.background_image;
     const gameName = data.name || data.name_original || 'There Must be Name of Game)';
     const released = `released:${data.released}`;
@@ -50,7 +48,7 @@ module.exports = (data) => {
     const link = `https://rawg.io/games/${data.slug}`;
     const moreInfo = "<a href="+ "'" + link + "'" +">More Info</a>";
 
-    const caption = `${gameName}\n${released}\n${metacritic}\n${genres}\n${tags}\n${developers}\n${publisher}\n${website}\n${platforms}\n${stores}\n${requirements}\n${description_raw}\n${moreInfo}`
+    const caption = `${gameName}\n${released}\n${metacritic}\n${genres}\n${developers}\n${publisher}\n${website}\n${platforms}\n${stores}\n${requirements}\n${description_raw}\n${moreInfo}`
 
     return {
         img,
