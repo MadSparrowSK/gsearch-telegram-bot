@@ -28,7 +28,7 @@ class GamesQuery {
 
         const {img, caption} = getConvertGameData(data);
 
-        await bot.sendPhoto(chatId, img, {caption});
+        await bot.sendPhoto(chatId, img, {caption, parse_mode:'HTML'});
         await bot.sendMessage(chatId, '?Next?', AdditionalButtons)
     }
     async strategy(bot, chatId, {AdditionalButtons}) {

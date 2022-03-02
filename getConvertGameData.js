@@ -39,11 +39,12 @@ module.exports = (data) => {
 
     let storesList = "";
     data.stores.forEach((obj, index) => {
-        storesList += index == data.stores.length - 1 ? obj.store.name : `${obj.store.name},`
+        storesList += index == data.stores.length - 1 ? '<a href=' + "'" + obj.store.domain + "'" +'>' + obj.store.name + '</a>' : '<a href=' + "'" + obj.store.domain + "'" +'>' + obj.store.name + '</a>,'
     })
     const stores = `stores:[${storesList || 'You know where find ;)'}]`
     const description_raw = (data.description_raw.length > 100 ? `${data.description_raw.substring(0,100)}...` : data.description_raw) || 'no description';
-    const moreInfo = `https://rawg.io/games/${data.slug}`;
+    const link = `https://rawg.io/games/${data.slug}`;
+    const moreInfo = "<a href="+ "'" + link + "'" +">More Info</a>";
 
     const caption = `${gameName}\n${released}\n${metacritic}\n${genres}\n${tags}\n${developers}\n${publisher}\n${website}\n${platforms}\n${stores}\n${description_raw}\n${moreInfo}`
 
